@@ -8,8 +8,14 @@ const port = process.env.PORT || 4000;
 
 const server = http.createServer(
     (req, res) => {
-    res.write("Hello world");
-    res.end();
+        res.writeHead(200,{
+            "Access-Control-Allow-Origin"       : "*"//`https://amabolearn.github.io`,
+           , "Acess-Control-Allow-Methods"       : "OPTIONS, POST, GET",
+            "Access-Control-Max-Age"            : 2592000,
+            "Access-Control-Request-Headers"    : "Content-Type"
+        });
+        res.write("Hello world");
+        res.end();
     }
 ).listen(port);
 
