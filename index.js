@@ -1,11 +1,20 @@
 const {Nosqljsondb} = require("nosql-json-db");
-const {WebSocketServer} = require("ws");
+const {Server} = require("ws");
 
 const db = new Nosqljsondb("./db.json");
 const http = require("http");
 
 const port = process.env.PORT || 4000;
-const wss = new WebSocketServer({port : port});
+
+const server = http.createServer(
+    (req, res) => {
+    res.write("Hello world");
+    res.end();
+    }
+).listen(port);
+
+const wss = new Server({server});
+
 const clients = [];
 wss.on("connection" ,
     (ws) => {
@@ -59,9 +68,3 @@ wss.on("connection" ,
         });
     }
 );
-http.createServer(
-    (req, res) => {
-    res.write("Hello world");
-    res.end();
-    }
-).listen(port);
