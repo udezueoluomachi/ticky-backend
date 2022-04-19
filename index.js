@@ -27,6 +27,11 @@ wss.on("connection" ,
         clients.push(ws)
         ws.on("message" , (msg) => {
             let message = JSON.parse(msg);
+            if(message.connection) {
+                clients.forEach(element => {
+                    element.send(JSON.stringify(message.connection));
+                });
+            }
             if(message.match_id && message.message_type === "matchid_insertion") {
                 db.insertInto("matchid",{ matchid : message.match_id});
                 clients.forEach(element => {
