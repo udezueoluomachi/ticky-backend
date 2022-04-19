@@ -24,12 +24,13 @@ const wss = new Server({server});
 const clients = [];
 wss.on("connection" ,
     (ws) => {
-        clients.push(ws)
+        clients.push(ws);
+        clients.forEach(element => element.send(JSON.stringify({message : new Date().toString()})));
         ws.on("message" , (msg) => {
             let message = JSON.parse(msg);
-            if(message.connection) {
+            if(message.message !== "") {
                 clients.forEach(element => {
-                    element.send(JSON.stringify(message.connection));
+                    element.send(JSON.stringify(message));
                 });
             }
             if(message.match_id && message.message_type === "matchid_insertion") {
