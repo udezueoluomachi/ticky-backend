@@ -75,3 +75,5 @@ wss.on("connection" ,
         });
     }
 );
+
+module.exports = server;
