@@ -17,7 +17,7 @@ const server = http.createServer(
         res.write("Hello world");
         res.end();
     }
-).listen(port);
+).listen(port , () => console.log(`Server is running on port ${port}`));
 
 const wss = new Server({server});
 
